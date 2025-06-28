@@ -1,0 +1,6 @@
+@OtusMiniApi_HostAddress = http://localhost:5038
+
+GET {{OtusMiniApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
