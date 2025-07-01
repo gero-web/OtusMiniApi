@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgdb
+spec:
+  replicas: {{ .Values.deploymentdb.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentdb.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentdb.label }}
+    spec:
+      containers:
+        - name: {{ .Values.deploymentdb.containername }}
+          image: {{ .Values.deploymentdb.image }}
+          envFrom:
+            - secretRef:
+                name: pg-secrets

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-api-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: app-api
+  template:
+    metadata:
+      labels:
+        app: app-api
+    spec:
+      containers:
+        - name: app-api
+          image: {{ .Values.image.repository }}
+          ports:
+            - name: {{ .Values.image.portNameHttp }}
+              containerPort: {{ .Values.portAppHttp }}
+            - name: {{ .Values.image.portNameHttps }}
+              containerPort: {{ .Values.portAppHttps }}
+          envFrom:
+            - secretRef:
+                name: pg-secrets
+            - configMapRef:
+                name: app-config-map

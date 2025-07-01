@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ef-migration
+spec:
+  template:
+    spec:
+      containers:
+        - name: migration-container
+          image: {{ .Values.image.repository }}
+          command:
+            [
+              "dotnet",
+              "ef",
+              "database",
+              "update",
+              "--project",
+              "../src/OtusMiniApi",
+            ]
+          envFrom:
+            - secretRef:
+                name: pg-secrets
+            - configMapRef:
+                name: app-config-map
+
+      restartPolicy: OnFailure
+  backoffLimit: {{ .Values.backoffLimit }}

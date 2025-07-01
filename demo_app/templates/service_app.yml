@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-api-service
+spec:
+  selector:
+    app: app-api
+  ports:
+    - name: {{ .Values.serviceApp.portNameHttp }}
+      protocol: TCP
+      port: {{ .Values.serviceApp.portHttp }}
+      targetPort: {{ .Values.portAppHttp }}
+    - name: {{ .Values.serviceApp.portNameHttps }}
+      protocol: TCP
+      port: {{ .Values.serviceApp.portHttps }}
+      targetPort: {{ .Values.portAppHttps }}
