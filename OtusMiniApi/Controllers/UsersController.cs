@@ -1,39 +1,59 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
 using Core;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace OtusMiniApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UsersController(IUser user) : ControllerBase
+    public class UsersController(IUserManager user) : ControllerBase
     {
-        private IUser _user { get; } = user;
+        private readonly IUserManager _user = user;
+       
+        
 
+
+        [Authorize]
         [HttpGet(Name = "GetUser")]
-        public async Task<User> GetUser(long userId)
+        public async Task<User> GetUserProfile()
         {
-            var result = await _user.GetUserAsync(userId);
-
-            return result;
-        } 
-
-        [HttpPost(Name = "CreateUser")]
-        public async Task<bool> CreateUser( UserDTO user)
-        {
-            var result = await _user.CreateUserAsync(user);
+            var result = await _user.GetUserAsync( );
 
             return result;
         }
 
 
+        [HttpPost(Name = "Loggin")]
+        public async Task<bool>  LoginUserProfile(string userName, string password)
+        { 
+            var result = await _user.LoginUserAsync(userName, password);
+          
+            return result;
+        }
 
-        [HttpPut(Name = "EditUser")]
-        public async Task<User> EditUser( User user)
+        [HttpPost(Name = "RegisterUser")]
+        public async Task<bool> RegisterUser(UserDTO user)
         {
-            var result = await _user.EditUserAsync(user);
+            return await _user.CreateUserAsync(user);
+        }
+
+        [HttpGet]
+        public async Task<bool> LogOut()
+        {
+            return await _user.LogOutAsync();
+        }
+
+
+        [Authorize]
+        [HttpPut(Name = "EditUser")]
+        public async Task<User> EditUser(UserDTO user)
+        {
+        
+            var result = await _user.EditUserAsync(user, userId);
 
             return result;
         }

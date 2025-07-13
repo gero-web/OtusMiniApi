@@ -1,4 +1,5 @@
 ﻿using Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Infrastructors.Contexts
 {
     class UsersDbCOntext(ILogger<UsersDbCOntext> logger, 
-                         IConfiguration configuration) : DbContext
+                         IConfiguration configuration) : IdentityDbContext<User>
     {
         private ILogger<UsersDbCOntext> _logger = logger;
         private readonly IConfiguration configuration = configuration;
@@ -23,15 +24,15 @@ namespace Infrastructors.Contexts
             var dbName = Environment.GetEnvironmentVariable("DB_NAME");
             var user = Environment.GetEnvironmentVariable("USER_DB");
             var pass = Environment.GetEnvironmentVariable("PASS_DB");
-            var connectionString = "";
+            string connectionString;
 
-            if (Environment.GetEnvironmentVariable("ASPNETCORESTAGE") == "Development")
+            if (Environment.GetEnvironmentVariable("ASPNETCORESTAGE") == "Development" || string.IsNullOrEmpty(host))
             {
                 connectionString = configuration.GetConnectionString("defaultDb");
             }
             else
             {
-              connectionString =  $"Host={host};Port={port};Database={dbName};Username={user};Password={pass}";
+                connectionString = $"Host={host};Port={port};Database={dbName};Username={user};Password={pass}";
             }
 
             optionsBuilder.UseNpgsql(connectionString);

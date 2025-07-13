@@ -16,10 +16,10 @@ namespace Infrastructors.Repositories
             return true;
         }
 
-        public async Task<User> EditUserAsync(User user)
+        public async Task<User> EditUserAsync(User user, string userId)
         {
             var userInDb = usersDbContext.Users
-                                         .Single(u => u.UserId == user.UserId)
+                                         .Single(u => u.Id ==  userId)
                                          ?? throw new ArgumentNullException($"Пользователь не найден,с id {user.UserId}");
             
             userInDb.Email = user.Email;
@@ -33,14 +33,14 @@ namespace Infrastructors.Repositories
             return userInDb;
         }
 
-        public async Task<User> GetUserAsync(long userId) => await usersDbContext.Users
+        public async Task<User> GetUserAsync(string userId) => await usersDbContext.Users
                                   .AsNoTracking()
-                                  .SingleAsync(user => user.UserId == userId);
+                                  .SingleAsync(user => user.Id == userId);
 
         public IQueryable<User> GetUsersAsync()
         {
             return usersDbContext.Users
-                                       .AsNoTracking();
+                                 .AsNoTracking();
         }
     }
 }

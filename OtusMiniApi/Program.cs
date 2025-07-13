@@ -1,6 +1,7 @@
 
 
 using Application;
+using Core;
 using Microsoft.Extensions.Options;
 using Prometheus;
 
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Logging.AddConsole();
 
 builder.Services.AddApplicationDI();
+builder.Services.AddAuthentication();
 var app = builder.Build();
 app.UseRouting();
 
@@ -31,10 +33,9 @@ app.UseHttpMetrics(options =>
 });
 app.UseMetricServer();
 app.UseHttpsRedirection();
-
+app.UseAuthentication();     
 app.UseAuthorization();
-
-app.MapControllers();
+app.MapControllers(); 
 app.UseEndpoints(end =>
     {
         _ = end.MapMetrics(pattern: "/sergey/prometheus");

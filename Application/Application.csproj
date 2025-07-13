@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
+    <PackageReference Include="Microsoft.IdentityModel.Abstractions" Version="8.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Entyti\Core.csproj" />
     <ProjectReference Include="..\Infrastructors\Infrastructors.csproj" />
   </ItemGroup>

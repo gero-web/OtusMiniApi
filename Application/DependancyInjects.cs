@@ -13,7 +13,7 @@ namespace Application
         {
             services.AddInfrastraction();
 
-            services.AddScoped<IUser, UserService>();
+            services.AddScoped<IUserManager, UserService>();
 
            
         }
