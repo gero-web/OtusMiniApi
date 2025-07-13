@@ -10,7 +10,7 @@ namespace Application.Interfaces
 
         public Task<bool> CreateUserAsync(UserDTO user);
 
-        public Task<User> EditUserAsync(UserDTO user, string userId);
+        public Task<User> EditUserAsync(UserDTO user);
         Task<bool> LoginUserAsync(string email, string password);
         Task<bool> LogOutAsync();
     }

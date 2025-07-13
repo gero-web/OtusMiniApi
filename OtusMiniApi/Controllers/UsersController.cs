@@ -51,9 +51,8 @@ namespace OtusMiniApi.Controllers
         [Authorize]
         [HttpPut(Name = "EditUser")]
         public async Task<User> EditUser(UserDTO user)
-        {
-        
-            var result = await _user.EditUserAsync(user, userId);
+        { 
+            var result = await _user.EditUserAsync(user);
 
             return result;
         }
