@@ -38,11 +38,9 @@ namespace Application.Services
             return resutl.Succeeded;
         }
 
-        public async Task<User> EditUserAsync(UserDTO userDTO)
+        public async Task<User> EditUserAsync(UserDTO userDTO, string userId)
         {
-            var userId = ClaimsPrincipal.Current?.FindFirstValue(ClaimTypes.NameIdentifier)
-               ?? throw new ArgumentNullException("Пользователь не авторизирован");
-
+         
             var user = new User()
             {
                 FirstName = userDTO.FirstName,
@@ -54,11 +52,9 @@ namespace Application.Services
             return await repository.EditUserAsync(user, userId);
         }
 
-        public async Task<User> GetUserAsync()
+        public async Task<User> GetUserAsync(string userId)
         {
-            var userId = ClaimsPrincipal.Current?.FindFirstValue(ClaimTypes.NameIdentifier)
-                ?? throw new ArgumentNullException("Пользователь не авторизирован");
-
+         
             return await repository.GetUserAsync(userId);
         }
 
