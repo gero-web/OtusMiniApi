@@ -20,9 +20,8 @@ namespace OtusMiniApi.Controllers
         [Authorize]
         [HttpGet(Name = "GetUser")]
         public async Task<User> GetUserProfile()
-        {
-            var userId = User.Identity.GetUserId();
-            var result = await _user.GetUserAsync(userId);
+        { 
+            var result = await _user.GetUserAsync( );
 
             return result;
         }
@@ -52,9 +51,8 @@ namespace OtusMiniApi.Controllers
         [Authorize]
         [HttpPut(Name = "EditUser")]
         public async Task<User> EditUser(UserDTO user)
-        {
-            var userId = User.Identity.GetUserId();
-            var result = await _user.EditUserAsync(user, userId);
+        { 
+            var result = await _user.EditUserAsync(user);
 
             return result;
         }

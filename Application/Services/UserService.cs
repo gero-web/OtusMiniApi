@@ -1,7 +1,8 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
 using Core;
-using Infrastructors.Repositories;
+using Infrastructors.Repositories; 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -10,11 +11,20 @@ namespace Application.Services
 {
     class UserService(IRepository userRepository,
                       UserManager<User> userManager,
-                      SignInManager<User> signInManager) : IUserManager
+                      SignInManager<User> signInManager,
+                      IHttpContextAccessor httpContextAccessor) : IUserManager
     {
+        private readonly IHttpContextAccessor _contextAccessor = httpContextAccessor;
         private readonly IRepository repository = userRepository;
         private readonly UserManager<User> _userManager = userManager;
         private readonly SignInManager<User> signInManager = signInManager;
+
+        public bool IsAuthenticated => _contextAccessor.HttpContext?.User?
+                                                       .Identity?.IsAuthenticated ?? false;
+        public string GetUserId => _contextAccessor.HttpContext?
+                                                 .User?
+                                                 .FindFirstValue(ClaimTypes.NameIdentifier) 
+                                                 ?? throw new ArgumentNullException("User not found");
 
         public async Task<bool> CreateUserAsync(UserDTO user)
         {
@@ -38,9 +48,9 @@ namespace Application.Services
             return resutl.Succeeded;
         }
 
-        public async Task<User> EditUserAsync(UserDTO userDTO, string userId)
+        public async Task<User> EditUserAsync(UserDTO userDTO)
         {
-         
+            var userId = GetUserId;
             var user = new User()
             {
                 FirstName = userDTO.FirstName,
@@ -52,15 +62,14 @@ namespace Application.Services
             return await repository.EditUserAsync(user, userId);
         }
 
-        public async Task<User> GetUserAsync(string userId)
-        {
-         
-            return await repository.GetUserAsync(userId);
+        public async Task<User> GetUserAsync()
+        {   
+            return await repository.GetUserAsync(GetUserId);
         }
 
         public async Task<bool> LoginUserAsync(string userName, string password)
         {
-
+            var val = await _userManager.FindByNameAsync(userName);
             var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
             if (!result.Succeeded)
             {

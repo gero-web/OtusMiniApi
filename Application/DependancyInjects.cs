@@ -12,7 +12,7 @@ namespace Application
         public static void AddApplicationDI(this IServiceCollection services)
         {
             services.AddInfrastraction();
-
+            services.AddHttpContextAccessor();
             services.AddScoped<IUserManager, UserService>();
 
            
