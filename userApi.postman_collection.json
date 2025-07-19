@@ -1,18 +1,18 @@
 {
 	"info": {
-		"_postman_id": "c67aa5cd-6379-47ca-8f11-098f093b585e",
+		"_postman_id": "f8f1d30d-aa14-4fee-b6f5-7c2d1bb47663",
 		"name": "userApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "17712836"
 	},
 	"item": [
 		{
-			"name": "getUser",
+			"name": "GetUserProfile",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://arch.homework/api/Users?userId=1",
+					"raw": "http://arch.homework/api/Users/GetUserProfile",
 					"protocol": "http",
 					"host": [
 						"arch",
@@ -20,26 +20,21 @@
 					],
 					"path": [
 						"api",
-						"Users"
-					],
-					"query": [
-						{
-							"key": "userId",
-							"value": "1"
-						}
+						"Users",
+						"GetUserProfile"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "createUser",
+			"name": "RegisterUser",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"password\": \"string\",\r\n  \"email\": \"string\",\r\n  \"phone\": \"string\"\r\n}",
+					"raw": "{\r\n  \"firstName\": \"Test user 1\",\r\n  \"lastName\": \"Last name\",\r\n  \"password\": \"stringPassword1\",\r\n  \"email\": \"test@emai.ru\",\r\n  \"userName\": \"testUser1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -47,7 +42,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://arch.homework/api/Users",
+					"raw": "http://arch.homework/api/Users/RegisterUser",
 					"protocol": "http",
 					"host": [
 						"arch",
@@ -55,20 +50,21 @@
 					],
 					"path": [
 						"api",
-						"Users"
+						"Users",
+						"RegisterUser"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Edit",
+			"name": "EditUser",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userid\": 1,\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"password\": \"string\",\r\n  \"email\": \"string\",\r\n  \"phone\": \"string\"\r\n}",
+					"raw": "{\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"password\": \"stringPassword1\",\r\n  \"email\": \"string@test.ru\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,7 +72,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://arch.homework/api/Users",
+					"raw": "http://arch.homework/api/Users/EditUser",
 					"protocol": "http",
 					"host": [
 						"arch",
@@ -84,7 +80,64 @@
 					],
 					"path": [
 						"api",
-						"Users"
+						"Users",
+						"EditUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogOut",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://arch.homework/api/Users/LogOut",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"api",
+						"Users",
+						"LogOut"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginUserProfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://arch.homework/api/Users/LoginUserProfile?userName=testUser1&password=stringPassword1",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"api",
+						"Users",
+						"LoginUserProfile"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "testUser1"
+						},
+						{
+							"key": "password",
+							"value": "stringPassword1"
+						}
 					]
 				}
 			},
