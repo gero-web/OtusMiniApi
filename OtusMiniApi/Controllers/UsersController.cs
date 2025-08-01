@@ -14,9 +14,6 @@ namespace OtusMiniApi.Controllers
     {
         private readonly IUserManager _user = user;
        
-        
-
-
         [Authorize]
         [HttpGet(Name = "GetUser")]
         public async Task<User> GetUserProfile()

@@ -1,8 +1,6 @@
 
 
 using Application;
-using Core;
-using Microsoft.Extensions.Options;
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +29,7 @@ app.UseHttpMetrics(options =>
     options.ReduceStatusCodeCardinality();
     options.AddCustomLabel("host", context => context.Request.Host.Host);
 });
+
 app.UseMetricServer();
 app.UseHttpsRedirection();
 app.UseAuthentication();     

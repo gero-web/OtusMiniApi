@@ -15,6 +15,10 @@ namespace Infrastructors
 
             services.AddScoped<IRepository, UserRposries>();
 
+            services.ConfigureApplicationCookie(options => {
+                options.Cookie.Name = ".AspNet.SharedCookie";
+            });
+
 
             services.AddIdentity<User, IdentityRole>(opt =>
 
