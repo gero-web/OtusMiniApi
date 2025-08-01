@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtusMiniApi", "OtusMiniApi\OtusMiniApi.csproj", "{85DE89D0-9B45-48A5-AE22-7F1BB73A9635}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Entyti\Core.csproj", "{57D313A5-254B-48A0-84DF-E4E8C568C873}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{57796C4A-0CD0-4D47-9BE2-172C74E482EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGetway", "..\ApiGetway\ApiGetway\ApiGetway.csproj", "{45F5C35F-F604-93E4-9125-865F94EF5B43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{57796C4A-0CD0-4D47-9BE2-172C74E482EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57796C4A-0CD0-4D47-9BE2-172C74E482EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57796C4A-0CD0-4D47-9BE2-172C74E482EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F5C35F-F604-93E4-9125-865F94EF5B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F5C35F-F604-93E4-9125-865F94EF5B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F5C35F-F604-93E4-9125-865F94EF5B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F5C35F-F604-93E4-9125-865F94EF5B43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

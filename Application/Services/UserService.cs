@@ -69,7 +69,6 @@ namespace Application.Services
 
         public async Task<bool> LoginUserAsync(string userName, string password)
         {
-            var val = await _userManager.FindByNameAsync(userName);
             var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
             if (!result.Succeeded)
             {

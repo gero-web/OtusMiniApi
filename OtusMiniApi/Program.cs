@@ -13,8 +13,10 @@ builder.Services.AddSwaggerGen();
 builder.Logging.AddConsole();
 
 builder.Services.AddApplicationDI();
-builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
 app.UseRouting();
 
 // Configure the HTTP request pipeline.

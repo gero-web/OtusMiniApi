@@ -2,8 +2,10 @@
 using Application.Interfaces;
 using Core;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
 namespace OtusMiniApi.Controllers
@@ -14,12 +16,13 @@ namespace OtusMiniApi.Controllers
     {
         private readonly IUserManager _user = user;
        
-        [Authorize]
+        
         [HttpGet(Name = "GetUser")]
         public async Task<User> GetUserProfile()
-        { 
-            var result = await _user.GetUserAsync( );
+        {
+            var cookie = Request.Cookies[".AspNet.SharedCookie"];
 
+            var result =await _user.GetUserAsync();
             return result;
         }
 
