@@ -17,6 +17,7 @@ namespace Infrastructors
 
             services.AddScoped<IRepository, UserRposries>();
             services.AddDataProtection()
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"\\keyAppFloder"))
                     .SetApplicationName("SharedCookieApp"); // Use a consistent application name
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

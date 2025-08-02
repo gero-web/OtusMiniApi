@@ -19,9 +19,7 @@ namespace OtusMiniApi.Controllers
         
         [HttpGet(Name = "GetUser")]
         public async Task<User> GetUserProfile()
-        {
-            var cookie = Request.Cookies[".AspNet.SharedCookie"];
-
+        { 
             var result =await _user.GetUserAsync();
             return result;
         }
