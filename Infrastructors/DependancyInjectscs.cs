@@ -4,6 +4,9 @@ using Infrastructors.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,23 +19,23 @@ namespace Infrastructors
             services.AddDbContext<UsersDbCOntext>();
 
             services.AddScoped<IRepository, UserRposries>();
-            services.AddDataProtection()
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"\\keyAppFloder"))
-                    .SetApplicationName("SharedCookieApp"); // Use a consistent application name
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddDataProtection() 
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"keyFile")) // Or other shared storage
+                    .SetApplicationName("SharedCookieApp");
+
+            services.AddAuthentication()
                     .AddCookie(options =>
                     {
-                        options.Cookie.Path = "/";
                         options.Cookie.Name = ".AspNet.SharedCookie";
+                        options.Cookie.Domain = "arch.homework";
+                        options.Cookie.Path = "/";
+                        options.Cookie.SameSite = SameSiteMode.None;
+                        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                        options.Cookie.HttpOnly = true;
+
                     });
-
-         
-
-            services.ConfigureApplicationCookie(options => {
-                options.Cookie.Name = ".AspNet.SharedCookie";
-            });
-
+             
 
             services.AddIdentity<User, IdentityRole>(opt =>
 
@@ -43,7 +46,7 @@ namespace Infrastructors
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireDigit = false;
-               
+
             }).AddEntityFrameworkStores<UsersDbCOntext>();
         }
 
