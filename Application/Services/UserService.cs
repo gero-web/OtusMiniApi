@@ -5,7 +5,6 @@ using Infrastructors.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
 namespace Application.Services
@@ -13,19 +12,20 @@ namespace Application.Services
     class UserService(IRepository userRepository,
                       UserManager<User> userManager,
                       SignInManager<User> signInManager,
-                      ILogger<UserService> logger,
                       IHttpContextAccessor httpContextAccessor) : IUserManager
     {
         private readonly IHttpContextAccessor _contextAccessor = httpContextAccessor;
         private readonly IRepository repository = userRepository;
         private readonly UserManager<User> _userManager = userManager;
         private readonly SignInManager<User> signInManager = signInManager;
-        private readonly ILogger<UserService> _logger = logger;
-
 
         public bool IsAuthenticated => _contextAccessor.HttpContext?.User?
                                                        .Identity?.IsAuthenticated ?? false;
-        public string GetUserId =>  Guid.NewGuid().ToString();
+        public string GetUserId => _contextAccessor.HttpContext?
+                                                 .User?
+                                                 .FindFirstValue(ClaimTypes.NameIdentifier) 
+                                                 ?? throw new ArgumentNullException("User not found");
+
         public async Task<bool> CreateUserAsync(UserDTO user)
         {
             var userForCreation = new User()
@@ -63,11 +63,8 @@ namespace Application.Services
         }
 
         public async Task<User> GetUserAsync()
-        {
-            _logger.LogInformation("test ");
-
-            throw new Exception("test"); 
-         //   return await repository.GetUserAsync();
+        {   
+            return await repository.GetUserAsync(GetUserId);
         }
 
         public async Task<bool> LoginUserAsync(string userName, string password)

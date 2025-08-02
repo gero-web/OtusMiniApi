@@ -17,8 +17,7 @@ namespace OtusMiniApi.Controllers
         [HttpGet(Name = "GetUser")]
         public async Task<User> GetUserProfile()
         {
-            _logger.LogWarning($"User is Auth {User?.Identity?.IsAuthenticated}");
-            var result =await _user.GetUserAsync();
+             var result =await _user.GetUserAsync();
             return result;
         }
 
