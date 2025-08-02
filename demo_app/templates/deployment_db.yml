@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgdb
-spec:
+spec: 
   replicas: {{ .Values.deploymentdb.replicaCount }}
   selector:
     matchLabels:

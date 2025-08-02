@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apigetway-config-map
+  labels:
+    app: apigetway-config-map
+data:
+  SERVICE: {{.Values.apygetway.host}} 
+  HOST_DB: {{.Values.configMap.HOSTDB}} 
+  DB_NAME: {{.Values.configMap.DBNAME}}
+  ASPNETCORESTAGE: {{.Values.configMap.ASPNETCORESTAGE}} 

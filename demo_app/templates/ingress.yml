@@ -13,7 +13,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-api-service
+                name: apigetway-service
                 port:
                   number: {{.Values.serviceApp.portHttp}}
     - host: {{.Values.ingress.host}}
@@ -23,6 +23,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-api-service
+                name: apigetway-service
                 port:
                   number: {{.Values.serviceApp.portHttps }}

@@ -9,16 +9,20 @@
 		{
 			"name": "GetUserProfile",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://arch.homework/api/Users/GetUserProfile",
+					"raw": "http://arch.homework/user-input/api/Users/GetUserProfile",
 					"protocol": "http",
 					"host": [
 						"arch",
 						"homework"
 					],
 					"path": [
+						"user-input",
 						"api",
 						"Users",
 						"GetUserProfile"
@@ -42,16 +46,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://arch.homework/api/Users/RegisterUser",
+					"raw": "http://arch.homework/User/Register",
 					"protocol": "http",
 					"host": [
 						"arch",
 						"homework"
 					],
 					"path": [
-						"api",
-						"Users",
-						"RegisterUser"
+						"User",
+						"Register"
 					]
 				}
 			},
@@ -72,13 +75,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://arch.homework/api/Users/EditUser",
+					"raw": "http://arch.homework/user-input/api/Users/EditUser",
 					"protocol": "http",
 					"host": [
 						"arch",
 						"homework"
 					],
 					"path": [
+						"user-input",
 						"api",
 						"Users",
 						"EditUser"
@@ -93,15 +97,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://arch.homework/api/Users/LogOut",
+					"raw": "http://arch.homework/User/LogOut",
 					"protocol": "http",
 					"host": [
 						"arch",
 						"homework"
 					],
 					"path": [
-						"api",
-						"Users",
+						"User",
 						"LogOut"
 					]
 				}
@@ -110,28 +113,30 @@
 		},
 		{
 			"name": "LoginUserProfile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://arch.homework/api/Users/LoginUserProfile?userName=testUser1&password=stringPassword1",
+					"raw": "http://arch.homework/User/Login?nameUser=testUser1&password=stringPassword1",
 					"protocol": "http",
 					"host": [
 						"arch",
 						"homework"
 					],
 					"path": [
-						"api",
-						"Users",
-						"LoginUserProfile"
+						"User",
+						"Login"
 					],
 					"query": [
 						{
-							"key": "userName",
+							"key": "nameUser",
 							"value": "testUser1"
 						},
 						{

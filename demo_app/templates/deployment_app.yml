@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: app-api-deployment
 spec:
+  securityContext:
+      runAsUser: 0
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -11,17 +13,28 @@ spec:
     metadata:
       labels:
         app: app-api
-    spec:
-      containers:
-        - name: app-api
-          image: {{ .Values.image.repository }}
-          ports:
-            - name: {{ .Values.image.portNameHttp }}
-              containerPort: {{ .Values.portAppHttp }}
-            - name: {{ .Values.image.portNameHttps }}
-              containerPort: {{ .Values.portAppHttps }}
-          envFrom:
-            - secretRef:
-                name: pg-secrets
-            - configMapRef:
-                name: app-config-map
+  
+    spec: 
+        volumes:
+          - name: pvlocal
+            persistentVolumeClaim:
+              claimName: pvc
+        containers:
+          - name: app-api
+            volumeMounts:
+              - name: pvlocal
+                mountPath:  /root/.aspnet/DataProtection-Keys  
+              - name: pvlocal
+                mountPath: /app/keyFile
+               
+            image: {{ .Values.image.repository }} 
+            ports:
+              - name: {{ .Values.image.portNameHttp }}
+                containerPort: {{ .Values.portAppHttp }}
+              - name: {{ .Values.image.portNameHttps }}
+                containerPort: {{ .Values.portAppHttps }}
+            envFrom:
+              - secretRef:
+                  name: pg-secrets
+              - configMapRef:
+                  name: app-config-map

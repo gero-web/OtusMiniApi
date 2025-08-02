@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-api-getway
+spec:
+  
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-api-getway
+  template:
+    metadata:
+      labels:
+        app: app-api-getway
+
+    spec:
+      volumes:
+          - name: pvlocal
+            persistentVolumeClaim:
+              claimName: pvc
+      securityContext:
+        runAsUser: 0
+      containers:
+        - name: app-api-getway
+          volumeMounts:
+              - name: pvlocal
+                mountPath: /app/keyFile
+          image: 1t234tyio/apigetway 
+          ports:
+            - name: {{ .Values.image.portNameHttp }}
+              containerPort: {{ .Values.portAppHttp }}
+            - name: {{ .Values.image.portNameHttps }}
+              containerPort: {{ .Values.portAppHttps }}
+          envFrom: 
+            - secretRef:
+                name: pg-secrets 
+            - configMapRef:
+                name: apigetway-config-map
