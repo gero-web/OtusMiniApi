@@ -1,17 +1,21 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
 using Core;
-using Infrastructors.Repositories; 
+using Infrastructors.RabbitMqServices.Interfaces;
+using Infrastructors.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OtusApi.RebbitMqConfig.Model;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
 
 namespace Application.Services
 {
     class UserService(IRepository userRepository,
                       UserManager<User> userManager,
                       SignInManager<User> signInManager,
+                      IRabbitMqService rabbitMqService,
                       IHttpContextAccessor httpContextAccessor) : IUserManager
     {
         private readonly IHttpContextAccessor _contextAccessor = httpContextAccessor;
@@ -23,7 +27,7 @@ namespace Application.Services
                                                        .Identity?.IsAuthenticated ?? false;
         public string GetUserId => _contextAccessor.HttpContext?
                                                  .User?
-                                                 .FindFirstValue(ClaimTypes.NameIdentifier) 
+                                                 .FindFirstValue(ClaimTypes.NameIdentifier)
                                                  ?? throw new ArgumentNullException("User not found");
 
         public async Task<bool> CreateUserAsync(UserDTO user)
@@ -63,7 +67,7 @@ namespace Application.Services
         }
 
         public async Task<User> GetUserAsync()
-        {   
+        {
             return await repository.GetUserAsync(GetUserId);
         }
 
@@ -90,6 +94,26 @@ namespace Application.Services
             await signInManager.SignOutAsync();
 
             return true;
+        }
+
+        public async Task AppendBalanse(decimal many)
+        {
+            await rabbitMqService.SendMessageAsync(new ConsommerDto()
+            {
+                UserId = GetUserId,
+                Ammount = many,
+            },
+                        "billlingAppendQueue");
+        }
+
+        public async Task SpendBalance(decimal many)
+        {
+            await rabbitMqService.SendMessageAsync(new ConsommerDto()
+            {
+                UserId = GetUserId,
+                Ammount = many,
+            },
+                        "billlingWithdrawQueue");
         }
     }
 }

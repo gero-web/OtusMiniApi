@@ -16,6 +16,10 @@ ENV USER_DB=postgres
 ENV PASS_DB=1213 
 ENV ASPNETCORESTAGE=Realase 
 
+ENV HOST_Rabbit=localhost
+ENV PORT_Rabbit=5672
+ENV USER_Rabbit=guest
+ENV PASS_Rabbit=guest
 
 # Этот этап используется для сборки проекта службы
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build

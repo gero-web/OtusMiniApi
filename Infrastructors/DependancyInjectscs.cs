@@ -1,5 +1,10 @@
 ﻿using Core;
 using Infrastructors.Contexts;
+using Infrastructors.RabbitMqServices.Interfaces;
+using Infrastructors.RabbitMqServices.Options;
+using Infrastructors.RabbitMqServices.RabbitMqConfig.Interfase;
+using Infrastructors.RabbitMqServices.RabbitMqConfig.Service;
+using Infrastructors.RabbitMqServices.Services;
 using Infrastructors.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -21,8 +26,11 @@ namespace Infrastructors
             services.AddScoped<IRepository, UserRposries>();
 
             services.AddDataProtection() 
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"keyFile")) // Or other shared storage
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keyFile")) // Or other shared storage
                     .SetApplicationName("SharedCookieApp");
+
+            services.AddSingleton<IChannelRabbitMq, RabbitChannelService>();
+            services.AddScoped<IRabbitMqService, RabbitMqService>();
 
             services.AddAuthentication()
                     .AddCookie(options =>

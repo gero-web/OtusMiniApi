@@ -10,5 +10,7 @@ namespace Application.Interfaces
         Task<User> GetUserAsync();
         Task<User> EditUserAsync(UserDTO userDTO);
         Task<bool> CreateUserAsync(UserDTO user);
+        Task AppendBalanse(decimal many);
+        Task SpendBalance(decimal many);
     }
 }

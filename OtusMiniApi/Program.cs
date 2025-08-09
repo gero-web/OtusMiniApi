@@ -1,12 +1,16 @@
 
 
 using Application;
+using Infrastructors.RabbitMqServices.Options;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<RabitMqOptions>(builder.Configuration
+                                          .GetSection(nameof(RabitMqOptions)));
 builder.Services.AddDataProtection()
                 .UseCryptographicAlgorithms(
                        new AuthenticatedEncryptorConfiguration
