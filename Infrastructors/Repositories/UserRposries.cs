@@ -16,12 +16,14 @@ namespace Infrastructors.Repositories
             if (user.Balance >= order.OrderPrace)
             {
                 msg = "Заказ создан";
+              
                 usersDbContext.Notifications.Add(new Notifications()
                 {
                     User = user,
                     Notification = "Счастье",
                 });
 
+                user.Balance -= order.OrderPrace;
                 usersDbContext.Orders.Add(order);
             }
             else
