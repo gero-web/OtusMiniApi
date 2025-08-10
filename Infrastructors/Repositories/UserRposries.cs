@@ -49,7 +49,7 @@ namespace Infrastructors.Repositories
         {
             var userInDb = usersDbContext.Users
                                          .Single(u => u.Id == userId)
-                                         ?? throw new ArgumentNullException($"Пользователь не найден,с id {user.UserId}");
+                                         ?? throw new ArgumentNullException($"Пользователь не найден,с id {user.Id}");
 
             userInDb.Email = user.Email;
             userInDb.LastName = user.LastName;
