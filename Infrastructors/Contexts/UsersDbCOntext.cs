@@ -14,7 +14,8 @@ namespace Infrastructors.Contexts
         private readonly IConfiguration configuration = configuration;
 
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Notifications> Notifications {get; set;}
          
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

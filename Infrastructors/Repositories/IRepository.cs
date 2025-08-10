@@ -12,5 +12,7 @@ namespace Infrastructors.Repositories
         Task<bool> CreateUserAsync(User user);
 
         Task<User> EditUserAsync(User user, string userId);
+        Task<String> CreateOrderAsync(Order order);
+        IQueryable<Notifications> GetAllNotificationsUsers(string getUserId);
     }
 }

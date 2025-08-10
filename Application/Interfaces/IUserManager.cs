@@ -12,5 +12,7 @@ namespace Application.Interfaces
         Task<bool> CreateUserAsync(UserDTO user);
         Task AppendBalanse(decimal many);
         Task SpendBalance(decimal many);
+        Task<string> CreateOrderAsync(OrderDto orderDto);
+        Task<IEnumerable<NotificationsDto>> GetAllNotificationsAsync();
     }
 }

@@ -8,6 +8,35 @@ namespace Infrastructors.Repositories
     {
         private readonly UsersDbCOntext usersDbContext = context;
 
+        public async Task<string> CreateOrderAsync(Order order)
+        {
+            var user = await usersDbContext.Users.SingleOrDefaultAsync(user => user.Id == order.UserId);
+            var msg = "Не удалось, создать заказ";
+       
+            if (user.Balance >= order.OrderPrace)
+            {
+                msg = "Заказ создан";
+                usersDbContext.Notifications.Add(new Notifications()
+                {
+                    User = user,
+                    Notification = "Счастье",
+                });
+
+                usersDbContext.Orders.Add(order);
+            }
+            else
+            {
+                usersDbContext.Notifications.Add(new Notifications()
+                {
+                    User = user,
+                    Notification = "Горе",
+                });
+            }
+
+            await usersDbContext.SaveChangesAsync();
+            return msg;
+        }
+
         public async Task<bool> CreateUserAsync(User user)
         {
             await usersDbContext.Users.AddAsync(user);
@@ -19,9 +48,9 @@ namespace Infrastructors.Repositories
         public async Task<User> EditUserAsync(User user, string userId)
         {
             var userInDb = usersDbContext.Users
-                                         .Single(u => u.Id ==  userId)
+                                         .Single(u => u.Id == userId)
                                          ?? throw new ArgumentNullException($"Пользователь не найден,с id {user.UserId}");
-            
+
             userInDb.Email = user.Email;
             userInDb.LastName = user.LastName;
             userInDb.FirstName = user.FirstName;
@@ -31,6 +60,12 @@ namespace Infrastructors.Repositories
             await usersDbContext.SaveChangesAsync();
 
             return userInDb;
+        }
+
+        public IQueryable<Notifications> GetAllNotificationsUsers(string getUserId)
+        {
+            return usersDbContext.Notifications.AsNoTracking()
+                                        .Where(note => note.UserId == getUserId);
         }
 
         public async Task<User> GetUserAsync(string userId) => await usersDbContext.Users

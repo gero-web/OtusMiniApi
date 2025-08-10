@@ -115,5 +115,27 @@ namespace Application.Services
             },
                         "billlingWithdrawQueue");
         }
+
+        public async Task<string> CreateOrderAsync(OrderDto orderDto)
+        {
+            var order = new Order()
+            {
+                OrderName = orderDto.OrderName,
+                OrderPrace = orderDto.OrderPrace,
+                UserId = GetUserId,
+            };
+
+            var result = await repository.CreateOrderAsync(order);
+            return result;
+        }
+
+        public async Task<IEnumerable<NotificationsDto>> GetAllNotificationsAsync()
+        {
+            IEnumerable<NotificationsDto> result = await repository.GetAllNotificationsUsers(GetUserId)
+                                                              .Select(x => new NotificationsDto() { Notification = x.Notification })
+                                                              .ToListAsync();  ;
+
+            return result;
+        }
     }
 }

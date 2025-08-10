@@ -10,14 +10,14 @@ namespace OtusMiniApi.Controllers
     [ApiController]
     public class UsersController(IUserManager user, ILogger<UsersController> logger) : ControllerBase
     {
-        private  readonly ILogger<UsersController> _logger = logger;
+        private readonly ILogger<UsersController> _logger = logger;
         private readonly IUserManager _user = user;
-       
+
         [Authorize]
         [HttpGet(Name = "GetUser")]
         public async Task<User> GetUserProfile()
         {
-             var result =await _user.GetUserAsync();
+            var result = await _user.GetUserAsync();
             return result;
         }
 
@@ -38,10 +38,26 @@ namespace OtusMiniApi.Controllers
             return Ok();
         }
 
+        [HttpPost(Name = "CreateOrder")]
+        public async Task<string> CreateOrder([FromBody] OrderDto orderDto)
+        {
+            var result = await _user.CreateOrderAsync(orderDto);
+
+            return result;
+        }
+
+        [HttpGet(Name = "GetAllNotyfications")]
+        public async Task<IEnumerable<NotificationsDto>> GetAllNotyfications()
+        {
+            IEnumerable<NotificationsDto> result = await _user.GetAllNotificationsAsync();
+
+            return result;
+        }
+
         [Authorize]
         [HttpPut(Name = "EditUser")]
         public async Task<User> EditUser(UserDTO user)
-        { 
+        {
             var result = await _user.EditUserAsync(user);
 
             return result;
