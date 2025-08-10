@@ -203,6 +203,45 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "CreateOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"orderName\": \"order one\",\r\n  \"orderPrace\": 12.4 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/user-input/api/Users/CreateOrder",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"user-input",
+						"api",
+						"Users",
+						"CreateOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AllNotyfications",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
