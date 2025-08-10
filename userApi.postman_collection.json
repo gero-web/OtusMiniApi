@@ -147,6 +147,62 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "AppendBalance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://arch.homework/user-input/api/Users/AppendBalans?many=23.3",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"user-input",
+						"api",
+						"Users",
+						"AppendBalans"
+					],
+					"query": [
+						{
+							"key": "many",
+							"value": "23.3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SpendBalance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://arch.homework/user-input/api/Users/SpendBalance?many=23.3",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"user-input",
+						"api",
+						"Users",
+						"SpendBalance"
+					],
+					"query": [
+						{
+							"key": "many",
+							"value": "23.3"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

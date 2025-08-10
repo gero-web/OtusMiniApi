@@ -7,4 +7,8 @@ metadata:
 data:
   HOST_DB: {{.Values.configMap.HOSTDB}} 
   DB_NAME: {{.Values.configMap.DBNAME}}
-  ASPNETCORESTAGE: {{.Values.configMap.ASPNETCORESTAGE}}
+  ASPNETCORESTAGE: {{.Values.configMap.ASPNETCORESTAGE}} 
+  HOST_Rabbit: {{.Values.configMap.HOSTRabbit}}
+  PORT_Rabbit: {{.Values.configMap.PORTRabbit}}
+  USER_Rabbit: {{.Values.configMap.USERRabbit}}
+  PASS_Rabbit: {{.Values.configMap.PASSRabbit}}

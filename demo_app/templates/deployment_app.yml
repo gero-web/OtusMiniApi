@@ -33,6 +33,7 @@ spec:
                 containerPort: {{ .Values.portAppHttp }}
               - name: {{ .Values.image.portNameHttps }}
                 containerPort: {{ .Values.portAppHttps }}
+           
             envFrom:
               - secretRef:
                   name: pg-secrets

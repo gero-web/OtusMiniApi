@@ -8,12 +8,17 @@ backoffLimit: 5
 
 portAppHttp: 8080
 portAppHttps: 8081
+portRebbit: "5672"
 
 configMap:
   HOSTDB: pg-service
-  
   DBNAME: UserDb
   ASPNETCORESTAGE: Realase
+  HOSTRabbit: rabbit-service
+  USERRabbit: guest
+  PASSRabbit: guest
+
+
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   repository: 1t234tyio/otusminiapi

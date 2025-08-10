@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-api-deployment
+spec:
+  
+  replicas: 1
+  selector:
+    matchLabels:
+      app: billing-api
+  template:
+    metadata:
+      labels:
+        app: billing-api
+  
+    spec: 
+      
+        containers:
+          - name: billing-api
+            image: 1t234tyio/billingapiotus
+            ports:
+              - name: {{ .Values.image.portNameHttp }}
+                containerPort: {{ .Values.portAppHttp }}
+            
+            envFrom:
+              - secretRef:
+                  name: pg-secrets
+              - configMapRef:
+                  name: app-config-map
