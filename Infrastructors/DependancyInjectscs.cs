@@ -26,7 +26,7 @@ namespace Infrastructors
             services.AddScoped<IRepository, UserRposries>();
 
             services.AddDataProtection() 
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keyFile")) // Or other shared storage
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"keyFile")) // Or other shared storage
                     .SetApplicationName("SharedCookieApp");
 
             services.AddSingleton<IChannelRabbitMq, RabbitChannelService>();

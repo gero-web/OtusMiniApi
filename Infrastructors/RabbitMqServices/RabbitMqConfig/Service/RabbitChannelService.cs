@@ -20,7 +20,7 @@ namespace Infrastructors.RabbitMqServices.RabbitMqConfig.Service
         {
             var rabbitMqOpt = options.Value;
             var host = Environment.GetEnvironmentVariable("HOST_Rabbit") ?? rabbitMqOpt.HostName;
-            var port = int.Parse(Environment.GetEnvironmentVariable("PORT_Rabbit") ?? rabbitMqOpt.Port.ToString());
+            var port = rabbitMqOpt.Port;
             var user = Environment.GetEnvironmentVariable("USER_Rabbit") ?? rabbitMqOpt.UserName;
             var pass = Environment.GetEnvironmentVariable("PASS_Rabbit") ?? rabbitMqOpt.Password;
 
